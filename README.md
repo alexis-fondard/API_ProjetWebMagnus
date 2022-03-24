@@ -1,6 +1,6 @@
-# ProjetWebMagnus
+# ProjetWebMagnus_API
 
-Projet Web dans le cadre du cours WOA à Polytech Montpellier, correspondant à une application web sans restriction de technologie.
+API d'un projet web dans le cadre du cours WOA à Polytech Montpellier, correspondant à une application web sans restriction de technologie.
 
 ## Lancement
 
@@ -14,6 +14,8 @@ node server.js
 
 Projet développé par Alexis FONDARD MARTIN.
 
-## Statut du projet
+## Technologies & Statut du projet
 
-En développement.
+Conforme à REST, implémente un CRUD, PostgreSQL, Express, Cros, NodeJS, BD hébergée sur Heroku.
+
+Statut : En développement...
