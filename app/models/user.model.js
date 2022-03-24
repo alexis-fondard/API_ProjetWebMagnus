@@ -1,15 +1,4 @@
 const sql = require("./db.js")
-// constructor
-const User = function (user) {
-  this.userLastName = user.userLastName;
-  this.userFirstName = user.userFirstName;
-  this.userEmail = user.userEmail;
-  this.isCA = user.isCA;
-  this.isMember = user.isMember;
-  this.userCity = user.userCity;
-  this.phoneNumber = user.phoneNumber;
-  this.pwdUser = user.pwdUser;
-}
 User.create = (newUser, result) => {
   console.log(newUser)
   sql.query('INSERT INTO public."User" ("userLastName", "userFirstName", "userEmail", "isCA", "isMember", "userCity", "phoneNumber", "pwdUser") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', newUser, (err, res) => {
@@ -29,9 +18,9 @@ User.findById = (id, result) => {
       result(err, null)
       return
     }
-    if (res.length) {
-      console.log("found user: ", res[0])
-      result(null, res[0])
+    if (res.rows.length) {
+      console.log("found user: ", res.rows[0])
+      result(null, res.rows[0])
       return
     }
     // not found User with the id
@@ -119,50 +108,12 @@ User.remove = (id, result) => {
 // User.removeAll = result => {
 //   sql.query('DELETE FROM public."User"', (err, res) => {
 //     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
+//       console.log("error: ", err)
+//       result(null, err)
+//       return
 //     }
-//     console.log(`deleted ${res.affectedRows} user`);
-//     result(null, res);
-//   });
-// };
-module.exports = User;
-
-
-
-// const { DataTypes } = require("sequelize");
-
-// module.exports = (sequelize, Sequelize) => {
-//   const User = sequelize.define("user", {
-//     userLastName: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     },
-//     userFirstName: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     },
-//     isCA: {
-//       type: Sequelize.BOOLEAN,
-//       allowNull: false
-//     },
-//     isMember: {
-//       type: Sequelize.BOOLEAN,
-//       allowNull: false
-//     },
-//     userCity: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     },
-//     phoneNumber: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     },
-//     pwdUser: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     }
-//   });
-//   return User;
-// };
+//     console.log(`deleted ${res.affectedRows} user`)
+//     result(null, res)
+//   })
+// }
+module.exports = User
