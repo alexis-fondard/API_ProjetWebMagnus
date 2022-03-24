@@ -9,3 +9,11 @@ Pour lancer :
 ```bash
 node server.js
 ```
+
+## Auteur
+
+Projet développé par Alexis FONDARD MARTIN.
+
+## Statut du projet
+
+En développement.
