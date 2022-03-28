@@ -10,7 +10,9 @@ exports.create = (req, res) => {
   const { userLastName, userFirstName, userEmail, userCity, phoneNumber, pwdUser } = req.body
   const { isCA, isMember } = req.body || false
   // Save User in the database
-  User.create([userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser], (err, data) => {
+  User.create(
+    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser],
+    (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -21,8 +23,8 @@ exports.create = (req, res) => {
 }
 // Retrieve all Users from the database (with condition).
 exports.findAll = (req, res) => {
-  const userCity = req.body.userCity
-  User.getAll([userCity], (err, data) => {
+  const userCity = req.query.userCity
+  User.getAll(userCity, (err, data) => { //TODO: userCity
     if (err)
       res.status(500).send({
         message:
@@ -78,10 +80,10 @@ exports.update = (req, res) => {
     })
   }
   console.log(req.body)
-  const { id, userLastName, userFirstName, userEmail, userCity, phoneNumber, pwdUser } = req.body
+  const { userLastName, userFirstName, userEmail, userCity, phoneNumber, pwdUser } = req.body
   const { isCA, isMember } = req.body || false
   User.updateById(
-    [id, userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser],
+    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser, req.params.id],
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
