@@ -82,14 +82,22 @@ User.getAllCA = result => {
 }
 User.updateById = (user, result) => {
   let column = ["userLastName", "userFirstName", "userEmail", "isCA", "isMember", "userCity", "phoneNumber", "pwdUser"]
-  let query = 'UPDATE public."User" SET '
+  let query = 'UPDATE public."User" SET'
   let toUpdate = []
+  let alreadyUse = false
   for (let i = 0; i < user.length - 1; i++) { //-1 pour échapper l'id
     if (user[i] != null) {
-      query += '"' + column[i] + '" = $' + toUpdate.push(user[i]) + ' '
+      if (alreadyUse) {
+        query += ','
+      }
+      else {
+        alreadyUse = true
+      }
+      query += ' "' + column[i] + '" = $' + toUpdate.push(user[i])
     }
   }
-  query += 'WHERE "id" = $' + toUpdate.push(user[user.length - 1])  //push l'id
+  query += ' WHERE "id" = $' + toUpdate.push(user[user.length - 1])  //push l'id
+  console.log(query)
   sql.query(query,
     toUpdate,
     (err, res) => {

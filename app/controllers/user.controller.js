@@ -79,7 +79,7 @@ exports.update = (req, res) => {
       message: "Content can not be empty!"
     })
   }
-  console.log(req.body)
+  console.log("t", req.body)
   const { userLastName, userFirstName, userEmail, userCity, phoneNumber, pwdUser } = req.body
   const { isCA, isMember } = req.body || false
   User.updateById(
