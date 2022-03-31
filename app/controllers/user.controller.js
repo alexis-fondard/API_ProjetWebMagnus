@@ -21,6 +21,26 @@ exports.create = (req, res) => {
     else res.status(201).send(data.rows) //TODO: check utility
   })
 }
+exports.login = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    })
+  }
+  const { userEmail, pwdUser } = req.body
+  User.login(
+    [userEmail, pwdUser],
+    (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the User."
+        })
+      else res.status(201).send(data.rows[0])
+    }
+  )
+}
 // Retrieve all Users from the database (with condition).
 exports.findAll = (req, res) => {
   const userCity = req.query.userCity
