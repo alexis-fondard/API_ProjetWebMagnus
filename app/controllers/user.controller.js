@@ -18,7 +18,7 @@ exports.create = (req, res) => {
         message:
           err.message || "Some error occurred while creating the User."
       })
-    else res.status(201).send(data.rows) //TODO: check utility
+    else res.status(201).send(data.rows)
   })
 }
 exports.login = (req, res) => {
@@ -35,9 +35,9 @@ exports.login = (req, res) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the User."
+            err.message || "Some error occurred while logining the User."
         })
-      else res.status(201).send(data.rows[0])
+      else res.status(201).send(data)
     }
   )
 }
