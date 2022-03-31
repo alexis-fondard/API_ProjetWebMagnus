@@ -31,7 +31,7 @@ User.login = (userLogin, result) => {
       return
     }
     if (res.rows.length) {
-      console.log("found user: ", res.rows[0])
+      console.log("found user login: ", res.rows[0])
       result(null, res.rows[0])
       return
     }
