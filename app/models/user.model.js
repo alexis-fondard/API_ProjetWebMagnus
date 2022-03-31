@@ -23,6 +23,22 @@ User.create = (newUser, result) => {
       result(null, { id: res.insertId, ...newUser })
     })
 }
+User.login = (userLogin, result) => {
+  sql.query('SELECT * FROM public."User" WHERE "userEmail" = $1 AND "pwdUser" = $2', userLogin, (err,res) => {
+    if (err) {
+      console.log("error: ", err)
+      result(err, null)
+      return
+    }
+    if (res.rows.length) {
+      console.log("found user: ", res.rows[0])
+      result(null, res.rows[0])
+      return
+    }
+    // email & pwd aren't the good ones
+    result({ kind: "not_found" }, null)
+  })
+}
 User.findById = (id, result) => {
   sql.query('SELECT * FROM public."User" WHERE "id" = $1', id, (err, res) => {
     if (err) {
