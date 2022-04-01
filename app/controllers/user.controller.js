@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js")
+const {SHA256} = require('../security/hash')
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
@@ -11,7 +12,7 @@ exports.create = (req, res) => {
   const { isCA, isMember } = req.body || false
   // Save User in the database
   User.create(
-    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser],
+    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, SHA256(pwdUser)],
     (err, data) => {
     if (err)
       res.status(500).send({
@@ -30,7 +31,7 @@ exports.login = (req, res) => {
   }
   const { userEmail, pwdUser } = req.body
   User.login(
-    [userEmail, pwdUser],
+    [userEmail, SHA256(pwdUser)],
     (err, data) => {
       if (err)
         res.status(500).send({
@@ -103,7 +104,7 @@ exports.update = (req, res) => {
   const { userLastName, userFirstName, userEmail, userCity, phoneNumber, pwdUser } = req.body
   const { isCA, isMember } = req.body || false
   User.updateById(
-    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, pwdUser, req.params.id],
+    [userLastName, userFirstName, userEmail, isCA, isMember, userCity, phoneNumber, SHA256(pwdUser), req.params.id],
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
