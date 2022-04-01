@@ -5,6 +5,7 @@
  **/
 
 exports.SHA256 = (s) => {
+    if (s == null) return null;
     var chrsz = 8;
     var hexcase = 0;
 
